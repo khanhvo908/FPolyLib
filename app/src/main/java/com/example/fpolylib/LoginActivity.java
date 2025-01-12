@@ -1,5 +1,7 @@
 package com.example.fpolylib;
 
+import static androidx.core.content.ContextCompat.startActivities;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             if (check) {
                 startActivities(new Intent[]{new Intent(LoginActivity.this, MainActivity.class)});
             } else {
-                Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu sai roi ne", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
             }
         });
     }
