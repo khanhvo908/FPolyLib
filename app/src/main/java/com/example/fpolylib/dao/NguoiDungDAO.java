@@ -14,12 +14,10 @@ public class NguoiDungDAO {
     }
 
     //kiem tra thon tin dang nhap
-    public boolean KiemTraDangNhap(String username, String password) {
+    public boolean kiemTraDangNhap(String username, String password) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER WHERE username = ? AND password = ?", new String[]{username, password});
-        if (cursor.getCount() > 0)
-            return true;
-        else return false;
+        return cursor.getCount() > 0;
     }
 
 }
