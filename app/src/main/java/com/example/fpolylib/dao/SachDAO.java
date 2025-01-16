@@ -1,5 +1,6 @@
 package com.example.fpolylib.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,14 +25,26 @@ public class SachDAO {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM SACH", null);
-        if(cursor.getCount()>0){
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            do{
+            do {
                 list.add(new Sach(cursor.getInt(0), cursor.getString(1)));
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         return list;
+    }
+
+    //them sach
+    public boolean themSach(String tensach) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tensach", tensach);
+
+        long check = sqLiteDatabase.insert("SACH", null, contentValues);
+
+        return check != -1;
     }
 
 }
