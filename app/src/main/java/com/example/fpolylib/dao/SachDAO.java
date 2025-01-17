@@ -47,4 +47,15 @@ public class SachDAO {
         return check != -1;
     }
 
+    public boolean suaSach(Sach sach) {
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("tensach", sach.getTensach());
+
+        int check = sqLiteDatabase.update("SACH", contentValues, "masach=?", new String[]{String.valueOf(sach.getMasach())});
+
+        return check != 0;
+    }
+
 }

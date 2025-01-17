@@ -58,7 +58,7 @@ public class SachActivity extends AppCompatActivity {
         list = sachDAO.getDSSach();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerViewSach.setLayoutManager(linearLayoutManager);
-        SachAdapter SachAdapter = new SachAdapter(this, list);
+        SachAdapter SachAdapter = new SachAdapter(this, list, sachDAO);
         recyclerViewSach.setAdapter(SachAdapter);
     }
 
