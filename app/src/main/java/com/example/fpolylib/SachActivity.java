@@ -83,6 +83,12 @@ public class SachActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String tensach = edtTenSach.getText().toString();
+
+                if (tensach.isEmpty()) {
+                    Toast.makeText(SachActivity.this, "Nhap ten sach", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 boolean check = sachDAO.themSach(tensach);
                 if (check) {
                     Toast.makeText(SachActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
@@ -91,6 +97,13 @@ public class SachActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(SachActivity.this, "Them that bai", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertdialog.dismiss();
             }
         });
     }
