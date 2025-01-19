@@ -13,6 +13,15 @@
         android:theme="@style/Theme.FPolyLib"
         tools:targetApi="29">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TaikhoanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SachActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

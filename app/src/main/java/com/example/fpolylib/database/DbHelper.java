@@ -12,18 +12,22 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //tao bang loai sach và nguoi dung
-        String tSach = "CREATE TABLE SACH(masach integer primary key autoincrement, tensach text, tacgia text, loaisach text, giaban integer)";
+        String tSach = "CREATE TABLE SACH(masach integer primary key autoincrement, tensach text)";
         db.execSQL(tSach);
         String tUser = "CREATE TABLE USER(mauser integer primary key autoincrement, username text, password text)";
         db.execSQL(tUser);
 
         //data mau loai sach va nguoidung
-        db.execSQL("INSERT INTO SACH VALUES(1,'abc','xuat ban tre','thieu nhi',1000),(2,'ma','xuat ban thuong','kinh di',2000),(3,'cai luong','xuat ban gia','chieu chill',3000)");
-        db.execSQL("INSERT INTO USER VALUES(1,'Nguyen Van A','111'),(2,'Nguyen Van B','222'),(3,'Nguyen Van C','333')");
+        db.execSQL("INSERT INTO SACH VALUES(1,'abc'),(2,'ma'),(3,'cai luong')");
+        db.execSQL("INSERT INTO USER VALUES(1,'Vo Duy Bao Khanh','111'),(2,'Nguyen Hong Bao Ngoc','255'),(3,'Nguyen Van Ba','333')");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-
+        if (i != i1) {
+            db.execSQL("DROP TABLE IF EXISTS SACH");
+            db.execSQL("DROP TABLE IF EXISTS USER");
+            onCreate(db);
+        }
     }
 }
