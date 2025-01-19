@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText edtUser = findViewById(R.id.edtUser);
         EditText edtPass = findViewById(R.id.edtPass);
         Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnRegister = findViewById(R.id.btnRegister);
 
         nguoiDungDAO = new NguoiDungDAO(this);
 
@@ -38,6 +39,9 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
             }
+        });
+        btnRegister.setOnClickListener(view -> {
+            startActivities(new Intent[]{new Intent(LoginActivity.this, RegisterActivity.class)});
         });
     }
 }
