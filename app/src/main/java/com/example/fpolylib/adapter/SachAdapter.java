@@ -3,6 +3,7 @@ package com.example.fpolylib.adapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,13 +49,28 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder> {
         holder.txtTenSach.setText(list.get(position).getTensach());
 
         //su kien
-        holder.ivEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //hien thi dialog sua sach
-                showDialogSua(list.get(holder.getAdapterPosition()));
+        holder.ivEdit.setOnClickListener(view -> {
+            //hien thi dialog sua sach
+            showDialogSua(list.get(holder.getAdapterPosition()));
 
-            }
+        });
+        holder.ivDelete.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Thong Bao Xoa Sach");
+            builder.setMessage("Ban co chac chan muon xoa sach nay khong?");
+            builder.setPositiveButton("CO", (dialogInterface, i) -> {
+                int check = sachDAO.xoaSach(list.get(holder.getAdapterPosition()).getMasach());
+                if (check == 1) {
+                    Toast.makeText(context, "Xoa thanh cong", Toast.LENGTH_SHORT).show();
+                    loadData();
+                } else {
+                    Toast.makeText(context, "Xoa that bai", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("KHONG", null);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         });
     }
 
@@ -102,28 +118,20 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.ViewHolder> {
         btnThem.setText("Sửa");
         edtTenSach.setText(sach.getTensach());
 
-        btnThem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //lay du lieu tu edittext
-                String tenSach = edtTenSach.getText().toString().trim();
-                Sach sachUpdate = new Sach(sach.getMasach(), tenSach);
-                boolean check = sachDAO.suaSach(sachUpdate);
-                if (check) {
-                    Toast.makeText(context, "Cap nhat thanh cong", Toast.LENGTH_SHORT).show();
-                    loadData();
-                    alertdialog.dismiss();
-                } else {
-                    Toast.makeText(context, "Cap nhat that bai", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        btnHuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnThem.setOnClickListener(view1 -> {
+            //lay du lieu tu edittext
+            String tenSach = edtTenSach.getText().toString().trim();
+            Sach sachUpdate = new Sach(sach.getMasach(), tenSach);
+            boolean check = sachDAO.suaSach(sachUpdate);
+            if (check) {
+                Toast.makeText(context, "Cap nhat thanh cong", Toast.LENGTH_SHORT).show();
+                loadData();
                 alertdialog.dismiss();
+            } else {
+                Toast.makeText(context, "Cap nhat that bai", Toast.LENGTH_SHORT).show();
             }
         });
+        btnHuy.setOnClickListener(view2 -> alertdialog.dismiss());
     }
 
     private void loadData() {

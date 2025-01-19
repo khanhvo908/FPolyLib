@@ -58,12 +58,15 @@ public class SachDAO {
         return check != 0;
     }
 
-    public boolean xoaSach(int masach) {
+    public int xoaSach(int masach) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
 
         int check = sqLiteDatabase.delete("SACH", "masach=?", new String[]{String.valueOf(masach)});
-
-        return check != 0;
+        if (check == 0) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
 }
